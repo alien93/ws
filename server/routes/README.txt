@@ -1,4 +1,4 @@
-Use this folder to store .js files that define routs (REST endpoints)
+Use this folder to store .js files that define routes (REST endpoints)
 
 Example:
 
