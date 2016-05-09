@@ -6,13 +6,13 @@ tsApp.config(function($routeProvider){
 						.when(
 							"/",
 							{
-									templateUrl = "userDashboard.html"
+									templateUrl : "index.html"
 							}
 						)
 						.when(
 							"/adminLogin",
 							{
-									templateUrl = "adminLogin.html"
+									templateUrl : "adminLogin.html"
 							}
 							
 						)

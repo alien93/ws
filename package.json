@@ -1,0 +1,25 @@
+{
+  "name": "ticketing_system",
+  "version": "1.0.0",
+  "description": "ws project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alien93/ws.git"
+  },
+  "author": "Nina Marjanovic, Ceca Kraisnikovic, Stanko Kuveljic, Milan Kostic",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "mongoose": "^4.3.7"
+  },
+  "devDependencies": {},
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alien93/ws/issues"
+  },
+  "homepage": "https://github.com/alien93/ws#readme"
+}

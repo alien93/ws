@@ -12,13 +12,12 @@
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             {{errorMessage}}
         </div>
-        <input type="username" ng-model="user.username" placeholder="Username" class="form-control" required><br><br>
+        <input type="text" ng-model="user.username" placeholder="Username" class="form-control" required><br><br>
         <input type="password" ng-model="user.password" placeholder="Password" class="form-control" required><br>
         <input type="submit" value="Log in" class="btn btn-primary">
     </form>
-
+    
     <div class="col-md-offset-2 col-md-8">
-        <div ng-view>
-        </div>
+        
     </div>
 </div>
