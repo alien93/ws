@@ -1,2 +1,47 @@
 <!--Mogućnost kreiranja projekta i dodavanje/brisanje registrovanih
  korisnika za projekte-->
+
+<div>
+    <nav class="navbar-fluid navbar-inverse navbar-fixed-top navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"> Ticketing system</a>
+            <p class="navbar-right navbar-text"><a ui-sref = "login">Log out</a></p>
+        </div>
+    </nav>
+
+    <div ng-controller="adminProjectController">
+
+
+    <!--tabela svih projekata-->
+
+    <table class="table table-hover">
+        <tr>
+            <td><input type="text"  placeholder="Project name" class="form-control" ng-model="project.name" required></td>
+            <td>&nbsp;</td>
+            <td><input type="button" value="Add project" class="btn btn-primary" ng-click="addProject()"></td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <th>Project name</th>
+            <th>Contributors</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+
+        <tbody>
+			<tr ng-repeat="project in projects" ng-click="projectClick($index)">
+				<td>
+					  {{project.name}}
+				</td>
+				<td>
+					  {{project.contributors}}
+				</td>
+				<td><input type="button" value="Modify contributors" class="btn btn-warning" ng-click="modifyContributors($index); $event.stopPropagation();"></td>
+			</tr>
+        </tbody>
+    </table>
+
+</div>
+	
+</div>

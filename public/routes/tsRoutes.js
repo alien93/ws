@@ -16,5 +16,11 @@ tsApp.config(function($routeProvider){
 							}
 							
 						)
+						.when(
+							"/adminProjects",
+							{
+									templateUrl: "adminProjects.html"
+							}
+						)
 	}
 );
