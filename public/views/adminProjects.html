@@ -35,7 +35,11 @@
 					  {{project.name}}
 				</td>
 				<td>
-					  {{project.contributors}}
+					<table>
+						<tr ng-repeat="contributor in project.contributors">
+							<td>{{contributor.name}}</td>
+						</tr>
+					</table>
 				</td>
 				<td><input type="button" value="Modify contributors" class="btn btn-warning" ng-click="modifyContributors($index); $event.stopPropagation();"></td>
 			</tr>
