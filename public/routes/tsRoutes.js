@@ -14,7 +14,18 @@ tsApp.config(function($routeProvider){
 							{
 									templateUrl : "adminLogin.html"
 							}
-							
+						)
+						.when(
+							"/userRegister",
+							{
+									templateUrl : "userRegister.html"
+							}
+						)
+						.when(
+							"/userLogin",
+							{
+									templateUrl : "userLogin.html"
+							}
 						)
 						.when(
 							"/adminProjects",

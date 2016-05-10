@@ -3,10 +3,19 @@ body {
   width: 100%;
   height: 100%;
   font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-image: url(../img/picture.png);
+	background-repeat: repeat-x repeat-y;
 }
 
 .formAuth {
   max-width: 330px;
   padding: 5px;
   margin: 0 auto;
+}
+
+.formUser {
+  max-width: 330px;
+  padding: 5px;
+  margin: 0 auto;
+  font-size: 16px;
 }
