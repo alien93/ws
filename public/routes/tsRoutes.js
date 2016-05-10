@@ -33,5 +33,11 @@ tsApp.config(function($routeProvider){
 									templateUrl: "adminProjects.html"
 							}
 						)
+						.when(
+							"/userDashboard",
+							{
+									templateUrl : "userDashboard.html"
+							}
+						)
 	}
 );

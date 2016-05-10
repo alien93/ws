@@ -1,0 +1,36 @@
+<div class="container">
+<div class="jumbotron">	
+    <nav class="navbar-fluid navbar-inverse navbar-fixed-top navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"> Ticketing system </a>
+            <p class="navbar-right navbar-text"><a ui-sref = "logout">Log out</a></p>
+        </div>
+    </nav>
+    
+    <div data-ng-controller="userDashboardController">
+        <label> Task status: </label> <br>
+        <label ng-repeat="st in taskStatus">
+            <input type="checkbox" value="{{ st }}" > {{ st + "&nbsp;&nbsp;&nbsp;&nbsp;"}} 
+        </label>
+        <hr>
+        
+        <!--
+        <div class="panel-group">
+            <div class="panel panel-default" ng-repeat="pr in projects">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <div data-toggle="collapse"> {{ pr.name }} </div>
+                    </h4>
+                </div>
+               <div id="{{pr.name}}" class="panel-collapse collapse">
+                    <p> Bla bla text </p>
+               </div>
+            </div>
+
+        </div>
+        -->
+       
+        
+    </div>
+</div>
+</div>
