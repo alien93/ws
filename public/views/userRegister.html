@@ -1,1 +1,26 @@
-<!--Registracija na sistem-->
+<!--Registracija korisnika na sistem-->
+<div>
+    <nav class="navbar-fluid navbar-inverse navbar-fixed-top navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"> Ticketing system </a>
+            <p class="navbar-right navbar-text"><a ui-sref = "login">Log in</a></p>
+        </div>
+    </nav>
+    
+    
+    <form class="formUser" data-ng-controller="registerUserController" ng-submit="register()">
+        <p><b> User registration  </b></p> <br>
+        <div class="alert alert-danger" role="alert" ng-show="error">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            {{errorMessage}}
+        </div>
+        
+        <input type="text" ng-model="user.username" placeholder="Username" class="form-control" required><br>
+        <input type="password" ng-model="user.password" placeholder="Password" class="form-control" required><br>
+        <input type="submit" value="Register" class="btn btn-primary">
+    </form>
+    
+    <div class="col-md-offset-2 col-md-8">
+        
+    </div>
+</div>
