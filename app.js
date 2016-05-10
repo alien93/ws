@@ -34,6 +34,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
+require('./server/routes/registerRoutes')(app);
 
 app.listen(port);
 
