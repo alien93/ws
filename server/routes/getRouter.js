@@ -2,10 +2,10 @@
 module.exports = function(){
     var express = require('express');
     var router = express.Router();
-
+    
     var bodyParser = require('body-parser');
     router.use(bodyParser.urlencoded({
-    extended: true
+         extended: true
     }));
     router.use(bodyParser.json());
     return router;

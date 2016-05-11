@@ -19,6 +19,8 @@ user1.type = "Administrator";
 user1.username = "pera";
 user1.password = "123456";
 user1.email = "pera@email.com";
+
+
 user1.save(function(err,entry){
 	
 	var adminUser = entry;
