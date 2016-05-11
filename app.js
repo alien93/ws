@@ -14,7 +14,7 @@ var Project = mongoose.model('Project');
 var Task = mongoose.model('Task');
 var TaskVersion = mongoose.model('TaskVersion');
 var Comment = mongoose.model('Comment');
-var Team = mongoose.model.('Team');
+var Team = mongoose.model('Team');
 
 
 app.use(bodyParser.urlencoded({
