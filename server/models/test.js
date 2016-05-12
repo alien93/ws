@@ -1,7 +1,16 @@
 var mongoose = require('mongoose'),
  	models = require('./model');
 
+var status = require('./status');
+var priority = require("./priority");
 
+console.log(status.DONE.name);
+status.DONE.name = "PERA PERA";
+console.log(status.DONE.name);
+
+console.log(priority.BLOCKER);
+console.log(priority.getNameByValue(2));
+console.log(priority.getValueByName("Blocker"));
 
 
 mongoose.connect('mongodb://127.0.0.1/testDB');
@@ -43,8 +52,8 @@ user1.save(function(err,entry){
 			taskVersion1.title = "Prvi Naslov";
 			taskVersion1.description = "Prvi Opis";
 			taskVersion1.modifiedBy = adminUser;
-			taskVersion1.status = {name:'To Do',value:1};
-			taskVersion1.priority = {name:'Blocking',value:4};
+			taskVersion1.status = status.TODO;
+			taskVersion1.priority = priority.BLOCKER;
 			
 			taskVersion1.save(function(err,taskVer){
 				Task.findByIdAndUpdate(tsk._id,{$push:{'taskVersions':taskVer}},function(err,task){
