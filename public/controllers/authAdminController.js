@@ -6,7 +6,7 @@ angular.module('tsApp')
 						console.log('Hello from login');
 						$http({
 							method : "POST",
-							url : "http://localhost:8080/login/adminLogin",
+							url : "http://localhost:8080/rest/adminLogin",
 							data : $scope.user
 						}).then(function(resp){
 							alert(JSON.stringify(resp));

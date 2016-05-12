@@ -6,7 +6,7 @@ angular.module('tsApp')
 						console.log('Registration controller');
 						$http({
 							method : "POST",
-							url : "http://localhost:8080/login/registerUser",
+							url : "http://localhost:8080/rest/registerUser",
 							data : $scope.user
 						}).then(function(resp){
 							alert(JSON.stringify(resp));

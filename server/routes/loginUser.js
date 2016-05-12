@@ -1,5 +1,7 @@
 
-var router = require("./getRouter")();
+module.exports = function(){
+      
+var router = require("./getRouter");
 var mongoose = require("mongoose");
 
 var User = mongoose.model('User');
@@ -11,6 +13,7 @@ function helpLogin(req, resp, userType){
          if(user.length > 0){
               User.find({username : userName, password : pass, type : userType}, function(err, user){
                     if(user.length > 0){
+                          req.session.user = user[0];
                           resp.end(JSON.stringify(user));
                     }else{
                           resp.status(500).end("Neispravna lozinka.");
@@ -75,9 +78,18 @@ router.post('/registerUser', function(req, resp){
          });
       });
 });
-      
+
+router.post('/logoutUser', function(req, resp){
+   var user = req.session.user;
+   if(user == null){
+         resp.status(500).end("Niste ulogovani.");
+   }else{
+         req.user = null;
+         resp.end("Korisnik je odjavljen.");
+   }
+});
 router.get('/testGet', function(req, resp) {
       resp.end("Uspjeh");
+      console.log(JSON.stringify(req.session.user));
 });
-
-module.exports = router;
+}
