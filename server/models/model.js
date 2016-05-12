@@ -67,6 +67,7 @@ TaskVersionSchema.add({
 	comments:[CommentSchema]
 });
 
+/** POGLEDAJ OVDE, da li da imamo polje assignedTo */
 var TaskSchema = new Schema();
 TaskSchema.add({
 	code:{
@@ -76,17 +77,6 @@ TaskSchema.add({
 	},
 	taskVersions:[TaskVersionSchema]
 
-});
-
-var TeamSchema = new Schema();
-TeamSchema.add({
-	name:{
-		type:String,
-		required:true,
-		unique:true
-	},
-	users:[{type:Schema.Types.ObjectId,ref:User}],
-	projects:[{type:Schema.Types.ObjectId, ref:Project}]
 });
 
 var ProjectSchema = new Schema();
@@ -106,7 +96,7 @@ ProjectSchema.add({
 		ref:User,
 		required:true
 	},
-	teams:[{type:Schema.Types.ObjectId,ref:Team}],
+	users:[{type:Schema.Types.ObjectId, ref:User}],
 	tasks:[TaskSchema]
 });
 
@@ -136,7 +126,6 @@ var UserSchema = new Schema({
 	},
 	projects:[{type:Schema.Types.ObjectId, ref:Project}],
 	tasks:[{type:Schema.Types.ObjectId, ref:TaskSchema}],
-	teams:[{type:Schema.Types.ObjectId, ref:Team}]
 });
 
 
@@ -146,11 +135,9 @@ var TaskVersion = mongoose.model('TaskVersion',TaskVersionSchema);
 var Project = mongoose.model('Project',ProjectSchema);
 var User = mongoose.model('User',UserSchema);
 var Comment = mongoose.model('Comment',CommentSchema);
-var Team = mongoose.model('Team',TeamSchema);
 
 module.exports = User;
 module.exports = Project;
 module.exports = Task;
 module.exports = Comment;
 module.exports = TaskVersion;
-module.exports = Team;

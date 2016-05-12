@@ -11,7 +11,6 @@ var Project = mongoose.model('Project');
 var Task = mongoose.model('Task');
 var Comment = mongoose.model('Comment');
 var TaskVersion = mongoose.model('TaskVersion');
-var Team = mongoose.model('Team');
 
 /* TEST 1 */
 var user1 = new User();
@@ -53,8 +52,18 @@ user1.save(function(err,entry){
 				
 					var foundTask = Task.findOne({'_id':task._id},function(err,entry){
 						Project.findByIdAndUpdate(proj._id,{$push:{'tasks':entry}},function(err,proj){
-						console.log(err);
-						console.log(proj);
+						//console.log(err);
+						//console.log(proj);
+						
+						var proj2 = new Project();
+						proj2.name = "Drugi Projekat";
+						proj2.administrator = adminUser;
+						
+						proj2.save(function(err,entry){
+							console.log(err);
+							console.log(entry);
+						});
+				
 					});
 					});
 
@@ -71,6 +80,15 @@ user1.save(function(err,entry){
 			
 		
 	});
+	
+						var proj3 = new Project();
+						proj3.name = "Treci Projekat";
+						proj3.administrator = adminUser;
+						
+						proj3.save(function(err,entry){
+							console.log(err);
+							console.log(entry);
+						});
 	
 });
 
