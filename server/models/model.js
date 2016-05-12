@@ -75,6 +75,7 @@ TaskSchema.add({
 		required:true,
 		unique:true
 	},
+	project:{type:Schema.Types.ObjectId, ref:Project, required:true},
 	taskVersions:[TaskVersionSchema]
 
 });
@@ -97,7 +98,7 @@ ProjectSchema.add({
 		required:true
 	},
 	users:[{type:Schema.Types.ObjectId, ref:User}],
-	tasks:[TaskSchema]
+	tasks:[{type:Schema.Types.ObjectId, ref:Task}]
 });
 
 var UserSchema = new Schema({

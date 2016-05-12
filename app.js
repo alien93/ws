@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose'),
- 	models = require('./server/models/model');
+var mongoose = require('mongoose');
+var models = require('./server/models/model');
 
 
 
@@ -12,9 +12,9 @@ mongoose.connect('mongodb://127.0.0.1/tsApp');
 var User = mongoose.model('User');
 var Project = mongoose.model('Project');
 var Task = mongoose.model('Task');
-var TaskVersion = mongoose.model('TaskVersion');
 var Comment = mongoose.model('Comment');
-var Team = mongoose.model('Team');
+var TaskVersion = mongoose.model('TaskVersion');
+
 
 
 app.use(bodyParser.urlencoded({

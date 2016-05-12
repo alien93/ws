@@ -13,6 +13,7 @@ var Comment = mongoose.model('Comment');
 var TaskVersion = mongoose.model('TaskVersion');
 
 /* TEST 1 */
+
 var user1 = new User();
 user1.type = "Administrator";
 user1.username = "pera";
@@ -33,7 +34,7 @@ user1.save(function(err,entry){
 		
 		var task1 = new Task();
 		task1.code = "PRVI TASK";
-		
+		task1.project = proj;
 		task1.save(function(err,entry){
 			
 			var tsk = entry;
