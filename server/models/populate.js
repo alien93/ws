@@ -44,7 +44,7 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
         });
         */
     });
-    /*
+    
     var task2 = new Task();
     task2.code = "PROJ1_TASK2";
     task2.project = projID;
@@ -53,7 +53,7 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
     task2version.description = "Opis 2 .. .. . ";
     task2version.modifiedBy = adminID;
     task2version.assignedTo = peraID;
-    task2version.status = status.IN_PROGRESS;
+    task2version.status = status.DONE;
     task2version.priority = priority.MINOR;
     task2.taskVersions = [task2version];
     task2.save(function(err,task2){
@@ -66,9 +66,9 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
        console.log(err);
        console.log(task2);
     });
-    */
+    
 
-
+    /*
     var task2 = new Task();
     task2.code = "PROJ1_TASK2";
     task2.project = projID;
@@ -111,7 +111,7 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
         //console.log(err);
         //console.log(task2);
     });
-
+    */
 
     var task3 = new Task();
     task3.code = "PROJ1_TASK3";
@@ -121,7 +121,7 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
     task3version.description = "Opis 2 .. .. . ";
     task3version.modifiedBy = adminID;
     task3version.assignedTo = mikaID;
-    task3version.status = status.IN_PROGRESS;
+    task3version.status = status.DONE;
     task3version.priority = priority.MINOR;
     task3.taskVersions = [task3version];
     task3.save(function (err, task3) {
