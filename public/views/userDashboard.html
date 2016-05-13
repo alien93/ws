@@ -18,7 +18,7 @@
        <tr ng-model = "pr"> 
            <td ng-click="showTasks($index)"> <b> {{ pr.name }} </b> 
            <input type="button" value="Add task" class="btn btn-primary" style="float:right" 
-                  > </td>
+                  ng-click="addNewTask($index); $event.stopPropagation();"> </td>
        </tr> 
         
       <tr ng-if="testIfVisible($parent.$index)" ng-repeat="task in pr.tasks"> 

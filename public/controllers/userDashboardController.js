@@ -1,7 +1,7 @@
 angular.module('tsApp')
 		//user dashboard
-		.controller('userDashboardController', ['$scope',
-			function($scope){
+		.controller('userDashboardController', ['$scope', '$uibModal',
+			function($scope, $uibModal){
 				$scope.taskStatus = [ "To do", "In progress", "Verify", "Done"];
 				$scope.projects = [ 
 					{name: "Project1", status: "To do", 
@@ -9,13 +9,15 @@ angular.module('tsApp')
 							{ name: "task1"},
 							{ name: "taks2"},
 							{ name: "task3"}
-						]
+						],
+					 users: [ { name: "Pera" }, { name: "Mika"}, { name: "Zika"}]
 					}, 
 					{name: "Project2", status: "To do", 
 					 tasks: [ 
 							 { name: "task21"},
 							 { name: "taks22"},
-							 { name: "task23"}]
+							 { name: "task23"}],
+					 users: [ { name: "Pera" }, { name: "Mika"}, { name: "Zika"}, { name: "Sima"}, { name: "Rajko"}]
 					}
 				];
 				
@@ -31,8 +33,57 @@ angular.module('tsApp')
 					$scope.projects.push(newProject); 
 					$scope.tasksVisible.push(false);
 				}
-				$scope.fja = function() {
-					console.log("Fja");
-				}			
+				$scope.addNewTask = function(index){
+					var modalInstance = $uibModal.open({
+								animation: false,
+								templateUrl: 'modalAddTask.html',
+								controller: 'modalAddTaskController',
+								resolve: {
+									items: function(){
+											return $scope.projects[index];
+										},
+									index: function(){
+											return index;
+										}
+									}
+						});
+				}		
 			}
+		])
+		//-----------------------MODAL DIALOGS----------------------
+		.controller('modalAddTaskController', ['$scope', 'items', '$uibModalInstance',
+				function($scope, items, $uibModalInstance){
+						$scope.project = items;
+						
+						var task = { name: "", percent: 0, users: {} };
+						var selectedContributors = [];
+					
+						$scope.task = task;
+						$scope.selectedContributors = selectedContributors;
+						
+						$scope.addContributor = function(){
+							var newContributor = $scope.selectedName;
+							var alreadyAdded = false;
+							for (var i = 0; i < $scope.selectedContributors.length; i++) {
+								if ($scope.selectedContributors[i].name === $scope.selectedName) {
+									alreadyAdded = true;
+									break;
+								}
+							}
+							if (!alreadyAdded)
+								$scope.selectedContributors.push(newContributor);
+						}
+						$scope.removeContributor = function(index){
+							$scope.selectedContributors.splice(index, 1);
+						}
+						$scope.ok = function(){
+							$scope.task.users = $scope.selectedContributors;
+							$scope.project.tasks.push($scope.task);
+							//console.log($scope.task);
+							$uibModalInstance.close();
+						}
+						$scope.cancel = function(){
+							$uibModalInstance.close();
+						}
+				}
 		]);
