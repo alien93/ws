@@ -1,15 +1,20 @@
-<div modal="showModal" close="cancel()" ng-controller="adminProjectController">
+<div modal="showModal" close="cancel()">
     <div class="modal-header">
         <h4>{{project.name}}</h4>
     </div>
     <div class="modal-body">
            <table class="table table-striped">
+               <tr>
+                   <th>Contributors</th>
+                   <th>&nbsp;</th>
+               </tr>
 				<tr>
 					<td><input type="text" placeholder="Contributor's name" class="form-control" ng-model="contributor.name" required></td>
-					<td><input type="button" value="Add contributor" class="btn btn-primary" ng-click="addContributor()"></td>
+					<td><input type="button" value="Add" class="btn btn-primary" ng-click="addContributor()" style="float:right"></td>
 				</tr>
                 <tr ng-repeat="contributor in project.contributors">
                      <td>{{contributor.name}}</td>
+                     <td><input type="button" value="Remove" class="btn btn-danger" ng-click="removeContributor($index)" style="float:right"></td>
                 </tr>
            </table>
     </div>

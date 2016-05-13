@@ -26,7 +26,6 @@
             <th>Project name</th>
             <th>Contributors</th>
             <th>&nbsp;</th>
-            <th>&nbsp;</th>
         </tr>
 
         <tbody>
@@ -41,8 +40,10 @@
 						</tr>
 					</table>
 				</td>
-				<td><input type="button" value="Modify contributors" class="btn btn-warning" ng-click="modifyContributors($index); $event.stopPropagation();"></td>
-			</tr>
+                <td>
+				    <input type="button" value="Modify" class="btn btn-warning" ng-click="modifyContributors($index); $event.stopPropagation();">
+                </td>
+            </tr>
         </tbody>
     </table>
 

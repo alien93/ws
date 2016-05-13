@@ -29,7 +29,7 @@ angular.module('tsApp')
 											return index;
 										}
 									}
-						})
+						});
 					}
 				}
 			
@@ -38,14 +38,23 @@ angular.module('tsApp')
 		
 		
 		//-----------------------MODAL DIALOGS----------------------
-		.controller('adminMCController', ['$scope', 'items',
-				function($scope, items){
+		.controller('adminMCController', ['$scope', 'items', '$uibModalInstance',
+				function($scope, items, $uibModalInstance){
 						$scope.project = items;
 						$scope.contributor = [];
 						$scope.addContributor = function(){
 							var newContributor = {"name" : $scope.contributor.name};
 							$scope.project.contributors.push(newContributor);
 							$scope.contributor.name = "";
+						}
+						$scope.removeContributor = function(index){
+							$scope.project.contributors.splice(index, 1);
+						}
+						$scope.ok = function(){
+							$uibModalInstance.close();
+						}
+						$scope.cancel = function(){
+							$uibModalInstance.close();
 						}
 				}
 		]);

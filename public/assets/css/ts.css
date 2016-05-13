@@ -19,3 +19,12 @@ body {
   margin: 0 auto;
   font-size: 16px;
 }
+
+button{
+  width: 100px;
+}
+
+input[type="button"]{
+  width: 100px;
+}
+
