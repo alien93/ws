@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 var status = require('./status');
 var priority = require("./priority");
+var reports = require("../controllers/reports");
 
 console.log(status.DONE.name);
 status.DONE.name = "PERA PERA";
@@ -21,8 +22,10 @@ var Task = mongoose.model('Task');
 var Comment = mongoose.model('Comment');
 var TaskVersion = mongoose.model('TaskVersion');
 
-/* TEST 1 */
+reports.hello();
 
+/* TEST 1 */
+/*
 var user1 = new User();
 user1.type = "Administrator";
 user1.username = "pera";
@@ -101,7 +104,7 @@ user1.save(function(err,entry){
 						});
 	
 });
-
+*/
 
 /*   TEST 2 */
 /*

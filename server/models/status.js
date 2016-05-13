@@ -14,7 +14,6 @@ var Status =(function() {
     defineProp(verify,"Verify",namevalue["Verify"]);
     defineProp(inprogress,"In Progress",namevalue["In Progress"]);
     
-    console.log(done);
     
     return {
         TODO:todo,
