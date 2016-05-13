@@ -3,7 +3,8 @@ angular.module('tsApp')
 	.controller('adminProjectController',['$scope', '$uibModal',
 			function($scope, $uibModal){
 					var contributors  = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}];
-					var project = {"name" : "proj1", "contributors" : contributors};
+					var tasks = [{"name":"Task1"}, {"name":"Task2"}];
+					var project = {"name" : "proj1", "contributors" : contributors, "tasks":tasks};
 					$scope.projects = [project];
 					
 					$scope.addProject = function(){
@@ -42,6 +43,24 @@ angular.module('tsApp')
 				function($scope, items, $uibModalInstance){
 						$scope.project = items;
 						$scope.contributor = [];
+						$scope.task = []
+						
+						////////////////////////////////////////
+						//tasks
+						////////////////////////////////////////
+						$scope.addTask = function(){
+							var newTask = {"name": $scope.task.name};
+							$scope.project.tasks.push(newTask);
+							$scope.task.name = "";
+						}
+						$scope.removeTask = function(index){
+							$scope.project.tasks.splice(index, 1);
+						}
+						
+						
+						////////////////////////////////////////
+						//contributors
+						////////////////////////////////////////
 						$scope.addContributor = function(){
 							var newContributor = {"name" : $scope.contributor.name};
 							$scope.project.contributors.push(newContributor);
@@ -50,6 +69,8 @@ angular.module('tsApp')
 						$scope.removeContributor = function(index){
 							$scope.project.contributors.splice(index, 1);
 						}
+						
+						
 						$scope.ok = function(){
 							$uibModalInstance.close();
 						}

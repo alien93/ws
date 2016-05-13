@@ -5,6 +5,20 @@
     <div class="modal-body">
            <table class="table table-striped">
                <tr>
+                   <th>Tasks</th>
+                   <th>&nbsp;</th>
+               </tr>
+				<tr>
+					<td><input type="text" placeholder="Task's name" class="form-control" ng-model="task.name" required></td>
+					<td><input type="button" value="Add" class="btn btn-primary" ng-click="addTask()" style="float:right"></td>
+				</tr>
+                <tr ng-repeat="task in project.tasks">
+                     <td>{{task.name}}</td>
+                     <td><input type="button" value="Remove" class="btn btn-danger" ng-click="removeTask($index)" style="float:right"></td>
+                </tr>
+           </table>
+           <table class="table table-striped">
+               <tr>
                    <th>Contributors</th>
                    <th>&nbsp;</th>
                </tr>
