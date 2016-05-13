@@ -30,7 +30,9 @@ angular.module('tsApp')
 				$scope.addProject = function(newProject) {
 					$scope.projects.push(newProject); 
 					$scope.tasksVisible.push(false);
+				}
+				$scope.fja = function() {
+					console.log("Fja");
 				}			
-				
 			}
 		]);

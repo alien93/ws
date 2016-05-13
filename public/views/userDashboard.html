@@ -16,12 +16,17 @@
         
     <table class='table table-bordered' ng-repeat = "pr in projects">
        <tr ng-model = "pr"> 
-           <td ng-click = "showTasks($index)"> <b> {{ pr.name }} </b> 
-           <input type="button" value="Add task" class="btn btn-primary" style="float:right"> </td>
+           <td ng-click="showTasks($index)"> <b> {{ pr.name }} </b> 
+           <input type="button" value="Add task" class="btn btn-primary" style="float:right" 
+                  > </td>
        </tr> 
         
       <tr ng-if="testIfVisible($parent.$index)" ng-repeat="task in pr.tasks"> 
-           <td> &nbsp; {{ task.name }} </td>
+           <td> &nbsp; {{ task.name }} 
+               <button type="button" class="btn btn-default" style="float:right" ng-click=""> 
+                   <span class="glyphicon glyphicon-pencil">
+               </button>
+           </td>
       </tr>
     </table>
       
