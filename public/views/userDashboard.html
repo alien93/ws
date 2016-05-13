@@ -1,5 +1,4 @@
 <div class="container">
-<div class="jumbotron">	
     <nav class="navbar-fluid navbar-inverse navbar-fixed-top navbar">
         <div class="container">
             <a class="navbar-brand" href="#"> Ticketing system </a>
@@ -18,7 +17,7 @@
        <tr ng-model = "pr"> 
            <td ng-click="showTasks($index)"> <b> {{ pr.name }} </b> 
            <input type="button" value="Add task" class="btn btn-primary" style="float:right" 
-                  > </td>
+                  ng-click="addNewTask($index); $event.stopPropagation();"> </td>
        </tr> 
         
       <tr ng-if="testIfVisible($parent.$index)" ng-repeat="task in pr.tasks"> 
@@ -26,6 +25,10 @@
                <button type="button" class="btn btn-default" style="float:right" ng-click=""> 
                    <span class="glyphicon glyphicon-pencil">
                </button>
+               &nbsp;
+               <button type="button" class="btn btn-default" style="float:right">
+                    <span class="glyphicon glyphicon-option-horizontal"></span>
+                </button>
            </td>
       </tr>
     </table>
