@@ -14,23 +14,17 @@
         </label>
         <hr>
         
-        <!--
-        <div class="panel-group">
-            <div class="panel panel-default" ng-repeat="pr in projects">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <div data-toggle="collapse"> {{ pr.name }} </div>
-                    </h4>
-                </div>
-               <div id="{{pr.name}}" class="panel-collapse collapse">
-                    <p> Bla bla text </p>
-               </div>
-            </div>
-
-        </div>
-        -->
-       
+    <table class='table table-bordered' ng-repeat = "pr in projects">
+       <tr ng-model = "pr"> 
+           <td ng-click = "showTasks($index)"> <b> {{ pr.name }} </b> 
+           <input type="button" value="Add task" class="btn btn-primary" style="float:right"> </td>
+       </tr> 
         
+      <tr ng-if="testIfVisible($parent.$index)" ng-repeat="task in pr.tasks"> 
+           <td> &nbsp; {{ task.name }} </td>
+      </tr>
+    </table>
+      
     </div>
 </div>
 </div>
