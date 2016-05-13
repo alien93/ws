@@ -67,12 +67,12 @@ router.post('/registerUser', function(req, resp){
                       newUser.password = password;
                       newUser.email = email;
                       newUser.type = 'Programmer';
-                      newUser.save(function(err){
+                      newUser.save(function(err, user){
                          if(err){
                                resp.status(500).end("Greška na serveru. Pokušajte ponovo.");
                                return;
                          }
-                         resp.end(JSON.stringify(newUser));   
+                         resp.end(JSON.stringify(user));   
                       });
                 }
          });
@@ -81,10 +81,10 @@ router.post('/registerUser', function(req, resp){
 
 router.post('/logoutUser', function(req, resp){
    var user = req.session.user;
-   if(user == null){
+   if(!user){
          resp.status(500).end("Niste ulogovani.");
    }else{
-         req.user = null;
+         req.session.user = null;
          resp.end("Korisnik je odjavljen.");
    }
 });
