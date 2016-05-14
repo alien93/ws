@@ -19,16 +19,14 @@
                </tr>
 			   <tr>
                    <th colspan="3">
-                       Contributors
+                       Contributor
                    </th>
                </tr>
                <tr>
-					<td>
+					<td colspan="3">
                         <select class="form-control" ng-model="selectedName" ng-options="item as item.name for item in task.contributors"></select>
                     </td>
-                    <td></td>
-					<td><input type="button" value="Add" class="btn btn-primary" ng-click="addContributor()" style="float:right"></td>
-				</tr>
+               </tr>
                 <tr ng-repeat="contributor in selectedContributors">
                      <td>{{contributor.name}}</td>
                      <td></td>
