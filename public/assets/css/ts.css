@@ -24,3 +24,6 @@ input[type="button"]{
   width: 100px;
 }
 
+textarea {
+    resize: none;
+}
