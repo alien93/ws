@@ -45,6 +45,7 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
         */
     });
     
+    /*
     var task2 = new Task();
     task2.code = "PROJ1_TASK2";
     task2.project = projID;
@@ -66,9 +67,9 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
        console.log(err);
        console.log(task2);
     });
-    
+    */
 
-    /*
+    
     var task2 = new Task();
     task2.code = "PROJ1_TASK2";
     task2.project = projID;
@@ -91,7 +92,7 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
                 task2version2.description = "Opis 2 .. .. . -- IZMENA";
                 task2version2.modifiedBy = peraID;
                 task2version2.assignedTo = djuraID;
-                task2version2.status = status.IN_PROGRESS;
+                task2version2.status = status.DONE;
                 task2version2.priority = priority.MINOR;
                 Task.findOneAndUpdate({ "code": task2.code }, { $push: { taskVersions: task2version2 } }, { new: true }, function (err, updatedTask2) {
                     console.log(err);
@@ -111,7 +112,7 @@ function proceed(projID, adminID, peraID, mikaID, djuraID) {
         //console.log(err);
         //console.log(task2);
     });
-    */
+    
 
     var task3 = new Task();
     task3.code = "PROJ1_TASK3";
