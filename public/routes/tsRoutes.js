@@ -4,12 +4,6 @@ tsApp.config(function($routeProvider){
 				
 				$routeProvider
 						.when(
-							"/",
-							{
-									templateUrl : "index.html"
-							}
-						)
-						.when(
 							"/adminLogin",
 							{
 									templateUrl : "adminLogin.html"
@@ -39,5 +33,10 @@ tsApp.config(function($routeProvider){
 									templateUrl : "userDashboard.html"
 							}
 						)
+						.otherwise(
+							{
+							redirectTo: "/userDashboard"
+							}	
+						);
 	}
 );

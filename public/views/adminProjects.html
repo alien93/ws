@@ -1,13 +1,13 @@
 <!--Mogućnost kreiranja projekta i dodavanje/brisanje registrovanih
  korisnika za projekte-->
-
-<div>
+<div class="container">
     <nav class="navbar-fluid navbar-inverse navbar-fixed-top navbar">
         <div class="container">
             <a class="navbar-brand" href="#"> Ticketing system</a>
             <p class="navbar-right navbar-text"><a ui-sref = "login">Log out</a></p>
         </div>
     </nav>
+<div class="jumbotron">	
 
     <div ng-controller="adminProjectController">
 
@@ -18,7 +18,7 @@
         <tr>
             <td><input type="text"  placeholder="Project name" class="form-control" ng-model="project.name" required></td>
             <td>&nbsp;</td>
-            <td><input type="button" value="Add project" class="btn btn-primary" ng-click="addProject()"></td>
+            <td><input type="button" value="Add project" class="btn btn-primary" style="float:right" ng-click="addProject()"></td>
         </tr>
         <tr></tr>
         <tr></tr>
@@ -29,24 +29,47 @@
         </tr>
 
         <tbody>
-			<tr ng-repeat="project in projects" ng-click="projectClick($index)">
-				<td>
+            <!--projects-->
+            <table class='table table-bordered' ng-repeat="project in projects" ng-click="projectClick($index)">
+                <tr>
+				<th ng-click="showTasks($index)">
 					  {{project.name}}
-				</td>
+				</th>
 				<td>
 					<table>
+                        <!--contributors-->
 						<tr ng-repeat="contributor in project.contributors">
-							<td>{{contributor.name}}</td>
+							<td align="center" valign="middle">{{contributor.name}}</td>
 						</tr>
 					</table>
 				</td>
                 <td>
-				    <input type="button" value="Modify" class="btn btn-warning" ng-click="modifyContributors($index); $event.stopPropagation();">
+				    <input type="button" value="Modify" class="btn btn-warning" style="float:right" ng-click="modifyContributors($index); $event.stopPropagation();">
                 </td>
-            </tr>
+                </tr>
+            <!--tasks-->
+                <tr ng-if="testIfVisible($parent.$index)" ng-repeat="task in project.tasks"> 
+                    <td>{{task.name}}</td>
+                    <td>
+                        <table>
+                            <!--contributors-->
+                           <!-- <tr ng-repeat="contributor in project.tasks.contributors">
+                                <td>{{contributor.name}}</td>
+                            </tr>
+                            -->
+                        </table>
+                    </td>
+                    <td>
+                         <button type="button" class="btn btn-default" style="float:right" ng-click="modifyTask($parent.$parent.$index, $index)"> 
+                            <span class="glyphicon glyphicon-pencil">
+                        </button>
+                    </td>
+                </tr>
+            </table>
         </tbody>
     </table>
 
 </div>
 	
+</div>
 </div>
