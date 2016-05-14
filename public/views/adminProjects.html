@@ -53,15 +53,18 @@
                     <td>
                         <table>
                             <!--contributors-->
-                           <!-- <tr ng-repeat="contributor in project.tasks.contributors">
+                           <tr ng-repeat="contributor in project.tasks.contributors">
                                 <td>{{contributor.name}}</td>
                             </tr>
-                            -->
                         </table>
                     </td>
                     <td>
                          <button type="button" class="btn btn-default" style="float:right" ng-click="modifyTask($parent.$parent.$index, $index)"> 
                             <span class="glyphicon glyphicon-pencil">
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn btn-default" style="float:right" ng-click="moreInfo($parent.$parent.$index, $index)">
+                                <span class="glyphicon glyphicon-option-horizontal"></span>
                         </button>
                     </td>
                 </tr>

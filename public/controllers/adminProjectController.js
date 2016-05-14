@@ -1,7 +1,7 @@
 angular.module('tsApp')
 	//projects
-	.controller('adminProjectController',['$scope', '$uibModal',
-			function($scope, $uibModal){
+	.controller('adminProjectController',['$scope', '$uibModal', '$location',
+			function($scope, $uibModal, $location){
 					var contributors  = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}];
 					var taskContributors = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}];
 					var tasks = [{"name":"Task1", "contributors": taskContributors, "percentage": 30}, {"name":"Task2","contributors": taskContributors, "percentage": 50}];
@@ -16,6 +16,12 @@ angular.module('tsApp')
 					$scope.projectClick = function(index){
 						//console.log("Index: " + index);
 					}
+					
+					$scope.moreInfo = function(projectIndex, taskIndex){
+						console.log("More information");
+						$location.path('/adminProjectTask');
+					}
+					
 					$scope.modifyContributors = function(index){
 						//var project = $scope.projects[index];
 						//$scope.projects[index] = {"name" : project.name, "contributors": "Mika"};
@@ -39,8 +45,8 @@ angular.module('tsApp')
 							templateUrl: 'adminModifyTask_m.html',
 							controller: 'adminMTController',
 							resolve:{
-								item: function(){
-									return $scope.projects[projectIndex].tasks[taskIndex];
+								items: function(){
+									return $scope.projects;
 								},
 								projectIndex: function(){
 									return projectIndex;	
@@ -109,11 +115,12 @@ angular.module('tsApp')
 						}
 				}
 		])
-		.controller('adminMTController', ['$scope', 'item', '$uibModalInstance', 'projectIndex', 'taskIndex',
-				function($scope, item, $uibModalInstance, projectIndex, taskIndex){
-						$scope.task = item;
+		.controller('adminMTController', ['$scope', 'items', '$uibModalInstance', 'projectIndex', 'taskIndex',
+				function($scope, items, $uibModalInstance, projectIndex, taskIndex){
+						$scope.projects = items;
+						$scope.task = $scope.projects[projectIndex].tasks[taskIndex];
 						console.log($scope.task);
-						$scope.task.percent = item.percentage;
+						$scope.task.percent = $scope.task.percentage;
 						
 						var task = { name: "", percent: 0, users: {} };
 						var selectedContributors = [];

@@ -1,0 +1,84 @@
+
+<div class="container">
+    <nav class="navbar-fluid navbar-inverse navbar-fixed-top navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"> Ticketing system</a>
+            <p class="navbar-right navbar-text"><a ui-sref = "login">Log out</a></p>
+        </div>
+    </nav>
+<div class="jumbotron">	
+
+    <div ng-controller="adminTaskController">
+
+
+    <table class="table table-condensed">
+        <tr>
+            <th colspan="2"><h2>Task name</h2></th>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <th colspan="2">Description</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                 <textarea rows="4" cols="50" ng-model="task.description" class="form-control"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">Contributors</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="table">
+                    <tr>
+                        <th>Contributor's name</th>
+                        <th>Percentage</th>
+                    </tr>
+                    <tr>
+                        <td>Name and Surname</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>Name and Surname</td>
+                        <td>30</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th>Comments</th>
+            <td>
+                <input type="button" value="Add" class="btn btn-primary" style="float:right" ng-click="addComment()">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="table">
+                    <tr>
+                        <th>myUsername</th>
+                        <th>25.4.2016.</th>
+                        <td>
+                            <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
+                                <span class="glyphicon glyphicon-remove">
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
+                                <span class="glyphicon glyphicon-pencil">
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan=3>
+                            Comment Comment Comment
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    </div>
+	
+</div>
+</div>
