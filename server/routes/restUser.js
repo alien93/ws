@@ -13,16 +13,27 @@ var Comment = mongoose.model('Comment');
 var Priority = require("../models/priority");
 var Status = require("../models/status");
 
+function getNewTaskVersion(req){
+      var user = req.session.user;
+      var title = req.body.title;
+      var description = req.body.description;
+      var status = Status.TODO;//req.body.status;
+      var priority = Priority.BLOCKER;//req.body.priority;
+      var assignedTo = req.body.assignedTo ? req.body.assignedTo : null;
+      var newTaskVersion = new TaskVersion({
+                  title : title,
+                  description : description,
+                  modifiedBy : user._id,
+                  assignedTo : assignedTo,
+                  status : status,
+                  priority : priority,
+                  comments : []
+      });
+      return newTaskVersion;
+}
+
 router.post('/createTask', function(req, resp){
-      var projectId = "57363c97763726a544bae5e3";
-      var userId = "57363b83f2114eb55b75376d";//req.session.user;
-      var title = "Novi zadatak";
-      var description = "Neki opis";
-      var status = Status.TODO;
-      var priority = Priority.BLOCKER;
-      var assignedTo = "57363b97f2114eb55b75376f";
       
-      /*
       var projectId = req.body.projectId;
       var user = req.session.user;
       if(user.type == "Programmer"){
@@ -31,24 +42,28 @@ router.post('/createTask', function(req, resp){
                   return;
             }
       }
+      /*
       var title = req.body.title;
       var description = req.body.description;
-      var status = req.body.status;
-      var priority = req.body.priority;
+      var status = Status.TODO;//req.body.status;
+      var priority = Priority.BLOCKER;//req.body.priority;
       var assignedTo = req.body.assignedTo ? req.body.assignedTo : null;
       */
       Project.findOne({_id : projectId}, function(err, project){
-                  
-            var code = project.name + "" + project.tasks.length;
-            var newTaskVersion = new TaskVersion({
+            
+            if(err) throw err;
+            
+            var code = project.name + "" + project.counter++;
+           /* var newTaskVersion = new TaskVersion({
                   title : title,
                   description : description,
-                  modifiedBy : userId,
+                  modifiedBy : user._id,
                   assignedTo : assignedTo,
                   status : status,
                   priority : priority,
                   comments : []
-            });
+            });*/
+            var newTaskVersion = getNewTaskVersion(req);
             var newTask = new Task({
                   code : code,
                   project : project._id,
@@ -65,10 +80,14 @@ router.post('/createTask', function(req, resp){
                             }else{
                                   if(assignedTo){
                                         User.findOne({_id : assignedTo}, function(err, user){
-                                           user.tasks.push(savedTask._id);
-                                           User.update({_id : assignedTo}, user, function(err){
-                                                resp.end(JSON.stringify(savedTask));              
-                                           });
+                                           if(user.projects.indexOf(project._id) != -1){
+                                                user.tasks.push(savedTask._id);
+                                                User.update({_id : assignedTo}, user, function(err){
+                                                       resp.end(JSON.stringify(savedTask));              
+                                                });
+                                           }else{
+                                                 resp.end(JSON.stringify(savedTask)); 
+                                           }
                                         });
                                   }else{
                                         resp.end(JSON.stringify(savedTask)); 
@@ -81,10 +100,16 @@ router.post('/createTask', function(req, resp){
 });
 
 router.post('/modifyTask', function(req, resp){
-      var task = req.body.task;
-      
-      Task.update({_id : task._id}, task, function(err, modfiedTask){
-            
+      var newTaskVersion = getNewTaskVersion(req);
+      var taskId = req.body.taskId;
+      Task.findOne({_id : taskId}, function(err, task){
+            task.taskVersions.push(newTaskVersion);
+            Task.update({_id : taskId}, task, function(err){
+               if(err) throw err; 
+               else{
+                     resp.end(JSON.stringify(newTaskVersion));
+               }  
+            });
       });
 });
 
@@ -98,11 +123,11 @@ router.post('/removeTask', function(req, resp){
                   var ind = project.tasks.indexOf(task._id);
                   project.tasks.splice(ind, 1);
                   Project.update({_id : project._id}, project, function(err){
-                        if(task.assignedTo){
-                              User.findOne({_id : assignedTo}, function(err, user){
+                        if(task.taskVersions[task.taskVersions.length - 1].assignedTo){
+                              User.findOne({_id : task.taskVersions[task.taskVersions.length - 1].assignedTo}, function(err, user){
                                     var ind = user.tasks.indexOf(task._id);
                                     user.tasks.splice(ind, 1);
-                                    User.update({_id : assignedTo}, user, function(err){
+                                    User.update({_id : user._id}, user, function(err){
                                           resp.end(JSON.stringify(task));              
                                     });
                               });
@@ -155,11 +180,57 @@ router.post('/addComment', function(req, resp){
 });
 
 router.post('/removeComment', function(req, resp){
-      
+      var taskId = req.body.taskId;
+      var commentId = req.body.commentId;
+      var taskVersionId = req.body.taskVersionId;
+      Task.findOne({_id : taskId}, function(err, task){
+         modifyComment(task, null, commentId, taskVersionId, true);
+         Task.update({_id : taskId}, task, function(err){
+            if(err) throw err;   
+            else{
+                  resp.end(JSON.stringify(task));
+            }
+         });
+      });
 });
 
+function helpModifyComment(comments, commentId, newContent, flagRemove){
+      var indRemove = -1;
+      for(var i = 0; i < comments.length; i++){
+            if(comments[i]._id == commentId){
+                  if(flagRemove) indRemove = i;
+                  else comments[i].content = newContent;
+                  break;
+            }else{
+                  helpModifyComment(comments[i].comments, commentId, newContent);
+            }
+      }
+      if(indRemove != -1) comments.splice(indRemove, 1);
+}
+
+function modifyComment(task, newContent, commentId, taskVersionId, flagRemove){
+     for(var i = 0; i < task.taskVersions.length; i++){
+           if(task.taskVersions[i]._id == taskVersionId){
+                  helpModifyComment(task.taskVersions[i].comments, commentId, newContent, flagRemove);
+                  break;
+           }
+     }
+}
+
 router.post('/modifyComment', function(req, resp){
-      
+      var newContent = req.body.content;
+      var taskId = req.body.taskId;
+      var commentId = req.body.commentId;
+      var taskVersionId = req.body.taskVersionId;
+      Task.findOne({_id : taskId}, function(err, task){
+         modifyComment(task, newContent, commentId, taskVersionId, false);
+         Task.update({_id : taskId}, task, function(err){
+            if(err) throw err;   
+            else{
+                  resp.end(JSON.stringify(task));
+            }
+         });
+      });
 });
 
 router.get('/getProjects', function(req, resp){
