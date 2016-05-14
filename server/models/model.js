@@ -92,6 +92,10 @@ ProjectSchema.add({
 		default:Date.now,
 		required:true
 	},
+	counter:{
+		type:Number,
+		default:0
+	},
 	administrator:{
 		type: Schema.Types.ObjectId,
 		ref:User,
