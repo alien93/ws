@@ -7,7 +7,7 @@ module.exports = function(app){
        console.log(req.url);
        var url = req.url;
        if(!req.session.user){
-           if(url == "/userRegister" || url == "/userLogin" || url == "/adminLogin"){
+           if(url == "/registerUser" || url == "/userLogin" || url == "/adminLogin"){
                 next();
            }else{
                 resp.status(500).end("Niste ulogovani.");
