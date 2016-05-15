@@ -63,6 +63,10 @@ angular.module('tsApp')
 										}
 									}
 						});
+				}
+				
+				$scope.moreInfo = function(idProj, idTask){
+						$location.path('/userTask/'+projectIndex+"/"+taskIndex);
 				}		
 			}
 		])

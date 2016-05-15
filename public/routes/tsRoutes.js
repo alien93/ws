@@ -39,6 +39,12 @@ tsApp.config(function($routeProvider){
 									templateUrl: "adminProjectTask.html"
 							}
 						)
+						.when(
+							"/userTask/:idProj/:idTask",
+							{
+									templateUrl: "userTask.html"
+							}
+						)
 						.otherwise(
 							{
 							redirectTo: "/userDashboard"
