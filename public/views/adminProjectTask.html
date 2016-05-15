@@ -18,15 +18,23 @@
         <tr></tr>
         <tr></tr>
         <tr>
-            <th colspan="2">Description</th>
+            <th>Priority:</th>
+            <td>{{task.priority}}</td>
+        </tr>
+        <tr>
+            <th>Status:</th>
+            <td>{{task.status}}</td>
+        </tr>
+        <tr>
+            <th colspan="2">Description:</th>
         </tr>
         <tr>
             <td colspan="2">
-                 <textarea rows="4" cols="50" ng-model="task.description" class="form-control"></textarea>
+                 <textarea rows="4" cols="50" ng-model="task.description" class="form-control" readonly></textarea>
             </td>
         </tr>
         <tr>
-            <th colspan="2">Contributor</th>
+            <th colspan="2">Contributor:</th>
         </tr>
         <tr>
             <td colspan="2">
@@ -43,7 +51,7 @@
             </td>
         </tr>
         <tr>
-            <th>Comments</th>
+            <th>Comments:</th>
             <td>
                 <input type="button" value="Add" class="btn btn-primary" style="float:right" ng-click="addComment()">
             </td>
