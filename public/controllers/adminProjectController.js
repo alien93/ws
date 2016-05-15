@@ -6,9 +6,9 @@ angular.module('tsApp')
 					//---------test data------------------
 					var contributors  = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}];
 					var taskContributor = {"name": "Pera Peric"};
-					var tasks = [{"name":"Task1", "contributor": taskContributor, "percentage": 30, "status":"To Do",
+					var tasks = [{"name":"Task1", "createdBy":"admin", "contributor": taskContributor, "percentage": 30, "status":"To Do",
 										 "description":"Task1 description", "priority":"Minor"}, 
-								 {"name":"Task2","contributor": taskContributor, "percentage": 50, "status":"To Do", 
+								 {"name":"Task2", "createdBy":"admin","contributor": taskContributor, "percentage": 50, "status":"To Do", 
 								 	 	 "description": "Task2 description", "priority":"Major"}];
 					var project = {"name" : "proj1", "contributors" : contributors, "tasks":tasks};
 					//---------\test data-----------------
