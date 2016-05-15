@@ -32,16 +32,58 @@ angular.module('tsApp')
 									}
 						});
             }
+            
+            $scope.modifyComment = function(index){
+                var modalInstance = $uibModal.open({
+								animation: false,
+								templateUrl: 'adminAddComment_m.html',
+								controller: 'adminModifyCommentController',
+								resolve: {
+									item: function(){
+											return $scope.task;
+										},
+                                    index: function(){
+                                        return index;
+                                    }
+                                }
+						});
+            }
+            
+            $scope.removeComment = function(index){
+                $scope.task.comments.splice(index, 1);
+            }
         })
         
         
         
         //------------------------MODAL DIALOGS-------------------------
+        
+        ////////////////////////////////////////////////////////////////////////
+        ///// Adding comments
+        ////////////////////////////////////////////////////////////////////////
         .controller("adminAddCommentController", ['$scope', 'item', '$uibModalInstance',
                 function($scope, item, $uibModalInstance){
                    $scope.submit = function(){
                        var comment = {"author":"admin", "commentDate":new Date(),"content": $scope.comment.content};
                        item.comments.push(comment);
+                       $uibModalInstance.close();
+                   } 
+                   
+                   $scope.cancel = function(){
+                       $uibModalInstance.close();
+                   }
+        }])
+        
+        ////////////////////////////////////////////////////////////////////////
+        ///// Modifying comments
+        ////////////////////////////////////////////////////////////////////////
+        .controller("adminModifyCommentController", ['$scope', 'item', 'index', '$uibModalInstance',
+                function($scope, item, index, $uibModalInstance){
+                   var temp = angular.copy(item.comments[index]);
+                   $scope.comment = temp;
+                   $scope.submit = function(){
+                       var comment = {"author":"admin", "commentDate":new Date(),"content": $scope.comment.content};
+                       item.comments[index] = comment;
                        $uibModalInstance.close();
                    } 
                    
