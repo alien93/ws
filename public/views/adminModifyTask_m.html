@@ -4,6 +4,19 @@
     </div>
     <div class="modal-body">
             <table class="table table-striped">
+                <tr>
+                   <th>
+                       Status
+                   </th>
+                   <td colspan="2">
+                        <select class="form-control" ng-model="task.status">
+                            <option>To Do</option>
+                            <option>In Progress</option>
+                            <option>Verify</option>
+                            <option>Done</option>
+                        </select>
+                   </td>
+               </tr>
                <tr>
                    <th colspan="3">Description</th>
                </tr>
@@ -15,7 +28,7 @@
                <tr>
                     <th>Percentage</th>
                     <td></td>
-                    <td><input type="number" value="1" min="1" max="100" placeholder="Task percentage" class="form-control" ng-model="task.percent" required></td>
+                    <td><input type="number" value="1" min="1" max="100" placeholder="Task percentage" class="form-control" ng-model="task.percentage" required></td>
                </tr>
 			   <tr>
                    <th colspan="3">
@@ -24,18 +37,12 @@
                </tr>
                <tr>
 					<td colspan="3">
-                        <select class="form-control" ng-model="selectedName" ng-options="item as item.name for item in task.contributors"></select>
+                        <select class="form-control" ng-model="task.contributor" ng-options="item as item.name for item in project.contributors"></select>
                     </td>
                </tr>
-                <tr ng-repeat="contributor in selectedContributors">
-                     <td>{{contributor.name}}</td>
-                     <td></td>
-                     <td><input type="button" value="Remove" class="btn btn-danger" ng-click="removeContributor($index)" style="float:right"></td>
-                </tr>
            </table>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="ok()">OK</button>
-        <button class="btn" ng-click="cancel()">Close</button>
+        <button class="btn" ng-click="close()">Close</button>
     </div>    
 </div>

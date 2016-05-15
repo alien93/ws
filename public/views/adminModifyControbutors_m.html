@@ -9,7 +9,7 @@
                    <th>&nbsp;</th>
                </tr>
 				<tr>
-					<td><input type="text" placeholder="Task's name" class="form-control" ng-model="task.name" required></td>
+					<td><input type="text" placeholder="Task name" class="form-control" ng-model="task.name" required></td>
 					<td><input type="button" value="Add" class="btn btn-primary" ng-click="addTask()" style="float:right"></td>
 				</tr>
                 <tr ng-repeat="task in project.tasks">
@@ -26,14 +26,13 @@
 					<td><input type="text" placeholder="Contributor's name" class="form-control" ng-model="contributor.name" required></td>
 					<td><input type="button" value="Add" class="btn btn-primary" ng-click="addContributor()" style="float:right"></td>
 				</tr>
-                <tr ng-repeat="contributor in project.contributors">
+                <tr ng-repeat="contributor in contributors">
                      <td>{{contributor.name}}</td>
                      <td><input type="button" value="Remove" class="btn btn-danger" ng-click="removeContributor($index)" style="float:right"></td>
                 </tr>
            </table>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="ok()">OK</button>
-        <button class="btn" ng-click="cancel()">Close</button>
+        <button class="btn" ng-click="close()">Close</button>
     </div>
 </div>

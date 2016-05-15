@@ -34,7 +34,7 @@ tsApp.config(function($routeProvider){
 							}
 						)
 						.when(
-							"/adminProjectTask",
+							"/adminProjectTask/:idProj/:idTask",
 							{
 									templateUrl: "adminProjectTask.html"
 							}

@@ -13,7 +13,7 @@
 
     <table class="table table-condensed">
         <tr>
-            <th colspan="2"><h2>Task name</h2></th>
+            <th colspan="2"><h2>{{task.name}}</h2></th>
         </tr>
         <tr></tr>
         <tr></tr>
@@ -36,8 +36,8 @@
                         <th>Percentage</th>
                     </tr>
                     <tr>
-                        <td>Name and Surname</td>
-                        <td>50</td>
+                        <td>{{task.contributor.name}}</td>
+                        <td>{{task.percentage}}</td>
                     </tr>
                 </table>
             </td>
@@ -52,22 +52,26 @@
             <td colspan="2">
                 <table class="table">
                     <tr>
-                        <th>myUsername</th>
-                        <th>25.4.2016.</th>
-                        <td>
-                            <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
-                                <span class="glyphicon glyphicon-remove">
-                            </button>
-                            &nbsp;
-                            <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
-                                <span class="glyphicon glyphicon-pencil">
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan=3>
-                            Comment Comment Comment
-                        </td>
+                        <table class="table" ng-repeat="comment in task.comments">
+                            <tr>
+                                <th>{{comment.username}}</th>
+                                <th>25.4.2016.</th>
+                                <td>
+                                    <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
+                                        <span class="glyphicon glyphicon-remove">
+                                    </button>
+                                    &nbsp;
+                                    <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
+                                        <span class="glyphicon glyphicon-pencil">
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan=3>
+                                    Comment Comment Comment
+                                </td>
+                            </tr>
+                        </table>
                     </tr>
                 </table>
             </td>

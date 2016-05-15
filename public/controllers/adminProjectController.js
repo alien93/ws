@@ -2,10 +2,15 @@ angular.module('tsApp')
 	//projects
 	.controller('adminProjectController',['$scope', '$uibModal', '$location',
 			function($scope, $uibModal, $location){
+				
+					//---------test data------------------
 					var contributors  = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}];
-					var taskContributors = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}];
-					var tasks = [{"name":"Task1", "contributors": taskContributors, "percentage": 30}, {"name":"Task2","contributors": taskContributors, "percentage": 50}];
+					var taskContributor = {"name": "Pera Peric"};
+					var tasks = [{"name":"Task1", "contributor": taskContributor, "percentage": 30, "status":"To Do", "description":"Task1 description"}, 
+								 {"name":"Task2","contributor": taskContributor, "percentage": 50, "status":"To Do", "description": "Task2 description"}];
 					var project = {"name" : "proj1", "contributors" : contributors, "tasks":tasks};
+					//---------\test data-----------------
+					
 					$scope.projects = [project];
 					
 					$scope.addProject = function(){
@@ -18,13 +23,10 @@ angular.module('tsApp')
 					}
 					
 					$scope.moreInfo = function(projectIndex, taskIndex){
-						console.log("More information");
-						$location.path('/adminProjectTask');
+						$location.path('/adminProjectTask/'+projectIndex+"/"+taskIndex);
 					}
 					
 					$scope.modifyContributors = function(index){
-						//var project = $scope.projects[index];
-						//$scope.projects[index] = {"name" : project.name, "contributors": "Mika"};
 						var modalInstance = $uibModal.open({
 								animation: false,
 								templateUrl: 'adminModifyControbutors_m.html',
@@ -58,28 +60,32 @@ angular.module('tsApp')
 						});						
 					}
 					
-					
-					$scope.tasksVisible = [true, true]; // Vidljivost taskova u okviru nekog projekta, mijenja se na klik
-					$scope.showTasks = function(index) { //Promjeni status da li su taskovi vidljivi
+					// Vidljivost taskova u okviru nekog projekta, mijenja se na klik
+					$scope.tasksVisible = [true, true]; 
+					//Promjeni status da li su taskovi vidljivi
+					$scope.showTasks = function(index) { 
 						$scope.tasksVisible[index] = !($scope.tasksVisible[index]);
 					}
-					$scope.testIfVisible = function(index) { //Vraca true ili false, za odredjeni projekat (indeks projekta)
+					//Vraca true ili false, za odredjeni projekat (indeks projekta)
+					$scope.testIfVisible = function(index) { 
 						return $scope.tasksVisible[index];
 					}	
-					
-					
 				}
-			
 		])
 		
 		
 		
 		//-----------------------MODAL DIALOGS----------------------
+		
+		////////////////////////////////////////////////////////////////////////////////
+		////// Add/remove project contributors, add/remove project tasks
+		////////////////////////////////////////////////////////////////////////////////
 		.controller('adminMCController', ['$scope', 'items', '$uibModalInstance',
 				function($scope, items, $uibModalInstance){
 						$scope.project = items;
-						$scope.contributor = [];
-						$scope.task = []
+						$scope.contributor = {};
+						$scope.task = {};
+						$scope.contributors = items.contributors;
 						
 						////////////////////////////////////////
 						//tasks
@@ -99,56 +105,37 @@ angular.module('tsApp')
 						////////////////////////////////////////
 						$scope.addContributor = function(){
 							var newContributor = {"name" : $scope.contributor.name};
-							$scope.project.contributors.push(newContributor);
+							var contributors = [];
+							$scope.contributors.push(newContributor);
 							$scope.contributor.name = "";
 						}
 						$scope.removeContributor = function(index){
 							$scope.project.contributors.splice(index, 1);
 						}
 						
-						
-						$scope.ok = function(){
-							$uibModalInstance.close();
-						}
-						$scope.cancel = function(){
+						////////////////////////////////////////
+						//close
+						////////////////////////////////////////
+						$scope.close = function(){
 							$uibModalInstance.close();
 						}
 				}
 		])
+		
+		////////////////////////////////////////////////////////////////////////////////
+		////// Modify task
+		////////////////////////////////////////////////////////////////////////////////
 		.controller('adminMTController', ['$scope', 'items', '$uibModalInstance', 'projectIndex', 'taskIndex',
 				function($scope, items, $uibModalInstance, projectIndex, taskIndex){
 						$scope.projects = items;
 						$scope.task = $scope.projects[projectIndex].tasks[taskIndex];
-						console.log($scope.task);
-						$scope.task.percent = $scope.task.percentage;
+						$scope.project = $scope.projects[projectIndex];
 						
 						var task = { name: "", percent: 0, users: {} };
 						var selectedContributors = [];
 						$scope.selectedContributors = selectedContributors;
 						
-						
-						$scope.addContributor = function(){
-							var newContributor = $scope.selectedName;
-							var alreadyAdded = false;
-							for (var i = 0; i < $scope.selectedContributors.length; i++) {
-								if ($scope.selectedContributors[i].name === $scope.selectedName) {
-									alreadyAdded = true;
-									break;
-								}
-							}
-							if (!alreadyAdded)
-								$scope.selectedContributors.push(newContributor);
-						}
-						
-						$scope.removeContributor = function(index){
-								$scope.selectedContributors.splice(index, 1);
-						}
-						
-						$scope.ok = function(){
-							$scope.projects[projectIndex].tasks[taskIndex].contributors = $scope.selectedContributors;
-							$uibModalInstance.close();
-						}
-						$scope.cancel = function(){
+						$scope.close = function(){
 							$uibModalInstance.close();
 						}
 				}
