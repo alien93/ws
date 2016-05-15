@@ -61,7 +61,7 @@
                         <table class="table commentTable" ng-repeat="comment in task.comments">
                             <tr>
                                 <th>{{comment.author}}</th>
-                                <th style="float:right">{{comment.commentDate}}</th>
+                                <th style="float:right">{{comment.commentDate | date:'dd.MM.yyyy'}}</th>
                                 <td>
                                     <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
                                         <span class="glyphicon glyphicon-remove">
