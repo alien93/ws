@@ -18,7 +18,9 @@ function getNewTaskVersion(req){
       var title = req.body.title;
       var description = req.body.description;
       var status = Status.TODO;//req.body.status;
-      var priority = Priority.BLOCKER;//req.body.priority;
+      var priority = req.body.priority ? {"name":
+                                        req.body.priority, "value": Priority.getValueByName(req.body.priority)}
+                                        : Priority.BLOCKER;//req.body.priority;
       var assignedTo = req.body.assignedTo ? req.body.assignedTo : null;
       var newTaskVersion = new TaskVersion({
                   title : title,
@@ -78,11 +80,12 @@ router.post('/createTask', function(req, resp){
                            if(err){
                                   resp.status(500).end("Greska na serveru.")
                             }else{
+                                  var assignedTo = newTaskVersion.assignedTo;
                                   if(assignedTo){
                                         User.findOne({_id : assignedTo}, function(err, user){
                                            if(user.projects.indexOf(project._id) != -1){
                                                 user.tasks.push(savedTask._id);
-                                                User.update({_id : assignedTo}, user, function(err){
+                                                User.update({_id : user._id}, user, function(err){
                                                        resp.end(JSON.stringify(savedTask));              
                                                 });
                                            }else{
@@ -236,18 +239,58 @@ router.post('/modifyComment', function(req, resp){
 router.get('/getProjects', function(req, resp){
       var user = req.session.user;
       Project.find({}, function(err, projects){
+            var userProjects = [];
             if(user.type == "Administrator"){
-                  resp.end(JSON.stringify(projects));      
+                  userProjects = projects;      
             }else{
-                  var userProjects = [];
                   for(var i = 0; i < projects.length; i++){
                         if(user.projects.indexOf(projects[i]._id) != -1){
                               userProjects.push(projects[i]);
                         }
                   }     
-                  resp.end(JSON.stringify(userProjects));
             }
+             resp.end(JSON.stringify(userProjects));
       });
+});
+
+router.post('/getTasksForProject', function(req, resp){
+   var projectId = req.body.projectId;
+   var index = req.body.index;
+   var tasks = [];
+   Project.findOne({_id : projectId}, function(err, project){
+      if(project.tasks.length == 0){
+            resp.end(JSON.stringify({index:index, tasks:tasks}));
+            return;
+      }
+      for(var i = 0; i < project.tasks.length; i++){
+            Task.findOne({_id : project.tasks[i]}, function(err, task){
+                  tasks.push(task);
+                  if(tasks.length == project.tasks.length){
+                        resp.end(JSON.stringify({index:index, tasks : tasks}));
+                  }
+            })
+      }   
+   });
+});
+
+router.post('/getUsersForProject', function(req, resp){
+   var projectId = req.body.projectId;
+   var index = req.body.index;
+   var users = [];
+   Project.findOne({_id : projectId}, function(err, project){
+      if(project.users.length == 0){
+            resp.end(JSON.stringify({index:index, users:users}));
+            return;
+      }
+      for(var i = 0; i < project.users.length; i++){
+            User.findOne({_id : project.users[i]}, function(err, user){
+                  if(user) users.push(user);
+                  if(users.length == project.users.length){
+                        resp.end(JSON.stringify({index:index, users:users}));
+                  }
+            });
+      }   
+   });
 });
 
 }

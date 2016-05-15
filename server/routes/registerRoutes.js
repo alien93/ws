@@ -3,7 +3,7 @@
  */
 module.exports = function(app){
     var router = require("./getRouter");
-    /*router.use(function(req, resp, next){
+    router.use(function(req, resp, next){
        console.log(req.url);
        var url = req.url;
        if(!req.session.user){
@@ -15,7 +15,7 @@ module.exports = function(app){
        }else{
            next();
        }
-    });*/
+    });
     require("./loginUser")();
     require("./restAdmin")();
     require("./restUser")();

@@ -1,26 +1,42 @@
 angular.module('tsApp')
 		//user dashboard
-		.controller('userDashboardController', ['$scope', '$uibModal',
-			function($scope, $uibModal){
-				$scope.taskStatus = [ "To do", "In progress", "Verify", "Done"];
-				$scope.projects = [ 
-					{name: "Project1", status: "To do", 
-					 tasks: [ 
-							{ name: "task1"},
-							{ name: "taks2"},
-							{ name: "task3"}
-						],
-					 users: [ { name: "Pera" }, { name: "Mika"}, { name: "Zika"}]
-					}, 
-					{name: "Project2", status: "To do", 
-					 tasks: [ 
-							 { name: "task21"},
-							 { name: "taks22"},
-							 { name: "task23"}],
-					 users: [ { name: "Pera" }, { name: "Mika"}, { name: "Zika"}, { name: "Sima"}, { name: "Rajko"}]
-					}
-				];
+		.controller('userDashboardController', ['$scope', '$uibModal', '$http',
+			function($scope, $uibModal, $http){
 				
+				$scope.taskStatus = [ "To do", "In progress", "Verify", "Done"];
+				$scope.projects = [];
+				
+				(function onLoad(){
+					$http({
+						method : 'GET',
+						url: 'http://localhost:8080/rest/getProjects'
+					}).then(function(resp){
+							//alert(resp.data);
+							$scope.projects = resp.data
+							for(var i = 0; i < $scope.projects.length; i++){
+								$http({
+									url: 'http://localhost:8080/rest/getTasksForProject', 
+									method: 'POST',
+									data: {projectId : $scope.projects[i]._id, index : i}
+								}).then(function(resp){
+									$scope.projects[resp.data.index].tasks = resp.data.tasks;
+								},function(err){
+									alert(err.data);
+								});
+								$http({
+									url: 'http://localhost:8080/rest/getUsersForProject', 
+									method: 'POST',
+									data: {projectId : $scope.projects[i]._id, index : i}
+								}).then(function(resp){
+									$scope.projects[resp.data.index].users = resp.data.users;
+								},function(err){
+									alert(err.data);
+								});
+							}
+						}, function(err){
+							alert(JSON.stringify(err));
+						});
+				}());
 				
 				$scope.tasksVisible = [true, true]; // Vidljivost taskova u okviru nekog projekta, mijenja se na klik
 				$scope.showTasks = function(index) { //Promjeni status da li su taskovi vidljivi
@@ -51,36 +67,29 @@ angular.module('tsApp')
 			}
 		])
 		//-----------------------MODAL DIALOGS----------------------
-		.controller('modalAddTaskController', ['$scope', 'items', '$uibModalInstance',
-				function($scope, items, $uibModalInstance){
+		.controller('modalAddTaskController', ['$scope', 'items', '$uibModalInstance', '$http',
+				function($scope, items, $uibModalInstance, $http){
 						$scope.project = items;
 						
-						var task = { name: "", percent: 0, users: {} };
+						var task = { title: "", description: "", assignedTo:null, priority:null,
+					projectId:$scope.project._id };
 						var selectedContributors = [];
 					
 						$scope.task = task;
-						$scope.selectedContributors = selectedContributors;
+						$scope.priorities = ["Blocker", "Critical", "Major", "Minor", "Trivial"];
 						
-						$scope.addContributor = function(){
-							var newContributor = $scope.selectedName;
-							var alreadyAdded = false;
-							for (var i = 0; i < $scope.selectedContributors.length; i++) {
-								if ($scope.selectedContributors[i].name === $scope.selectedName) {
-									alreadyAdded = true;
-									break;
-								}
-							}
-							if (!alreadyAdded)
-								$scope.selectedContributors.push(newContributor);
-						}
-						$scope.removeContributor = function(index){
-							$scope.selectedContributors.splice(index, 1);
-						}
 						$scope.ok = function(){
-							$scope.task.users = $scope.selectedContributors;
-							$scope.project.tasks.push($scope.task);
-							//console.log($scope.task);
-							$uibModalInstance.close();
+							task.assignedTo = task.assignedTo ? task.assignedTo._id : null;
+							$http({
+								url: 'http://localhost:8080/rest/createTask',
+								method: 'POST',
+								data: $scope.task
+							}).then(function(resp){
+								$scope.project.tasks.push(resp.data);
+								$uibModalInstance.close();
+							}, function(err){
+								alert(JSON.stringify(err));
+							});
 						}
 						$scope.cancel = function(){
 							$uibModalInstance.close();

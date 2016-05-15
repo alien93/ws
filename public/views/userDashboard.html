@@ -21,7 +21,7 @@
        </tr> 
         
       <tr ng-if="testIfVisible($parent.$index)" ng-repeat="task in pr.tasks"> 
-           <td> &nbsp; {{ task.name }} 
+           <td> &nbsp; {{ task.taskVersions[task.taskVersions.length-1].title }} 
                <button type="button" class="btn btn-default" style="float:right" ng-click=""> 
                    <span class="glyphicon glyphicon-pencil">
                </button>

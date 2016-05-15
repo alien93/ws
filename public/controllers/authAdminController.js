@@ -1,7 +1,7 @@
 angular.module('tsApp')
 		//admin login
-		.controller('authAdminController', ['$scope', '$http',
-			function($scope, $http){
+		.controller('authAdminController', ['$scope', '$http', '$location',
+			function($scope, $http, $location){
 					$scope.login = function(){
 						console.log('Hello from login');
 						$http({
@@ -10,6 +10,7 @@ angular.module('tsApp')
 							data : $scope.user
 						}).then(function(resp){
 							alert(JSON.stringify(resp));
+							$location.path("/userDashboard.html")
 						}, 
 						function(err){
 							alert(JSON.stringify(err));

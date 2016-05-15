@@ -4,20 +4,26 @@
     </div>
     <div class="modal-body">
            <table class="table table-striped">
-               <tr>
-                    <td><input type="text" placeholder="Task name" class="form-control" ng-model="task.name" required></td>
+                <tr>
+                    <td><input type="text" placeholder="Task name" class="form-control" ng-model="task.title" required></td>
                </tr>
                <tr>
-                    <td><input type="number" min="1" max="100" value="1" placeholder="Task percentage" class="form-control" ng-model="task.percent" required></td>
+                    <td>
+                        <textarea placeholder="Description" class="form-control" ng-model="task.description">
+                        </textarea>
+                   </td>
                </tr>
-			   <tr>
-					<td><select ng-model="selectedName" ng-options="item as item.name for item in project.users"> </select>
+               <tr>
+                    <th> Priority: </th>
+                    <td><select ng-model="task.priority" ng-options="item for item in priorities"> </select> </td>
+               </tr>
+               <tr ng-show="{{project.users.length!=0}}">
+                    <th> Assign to: </th>
+					<td><select ng-model="task.assignedTo" ng-options="item as item.username for item in project.users"> </select>
                     </td>
-					<td><input type="button" value="Add" class="btn btn-primary" ng-click="addContributor()" style="float:right"></td>
 				</tr>
-                <tr ng-repeat="contributor in selectedContributors">
-                     <td>{{contributor.name}}</td>
-                     <td><input type="button" value="Remove" class="btn btn-danger" ng-click="removeContributor($index)" style="float:right"></td>
+                <tr>
+                    <td>  </td>
                 </tr>
            </table>
     </div>
