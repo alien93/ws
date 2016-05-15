@@ -6,6 +6,20 @@
             <table class="table table-striped">
                 <tr>
                    <th>
+                       Priority
+                   </th>
+                   <td colspan="2">
+                        <select class="form-control" ng-model="task.priority">
+                            <option>Blocker</option>
+                            <option>Critical</option>
+                            <option>Major</option>
+                            <option>Minor</option>
+                            <option>Trivial</option>
+                        </select>
+                   </td>
+               </tr>
+                <tr>
+                   <th>
                        Status
                    </th>
                    <td colspan="2">
