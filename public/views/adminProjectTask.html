@@ -50,12 +50,10 @@
         </tr>
         <tr>
             <td colspan="2">
-                <table class="table">
-                    <tr>
-                        <table class="table" ng-repeat="comment in task.comments">
+                        <table class="table commentTable" ng-repeat="comment in task.comments">
                             <tr>
-                                <th>{{comment.username}}</th>
-                                <th>25.4.2016.</th>
+                                <th>{{comment.author}}</th>
+                                <th style="float:right">{{comment.commentDate}}</th>
                                 <td>
                                     <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
                                         <span class="glyphicon glyphicon-remove">
@@ -68,12 +66,10 @@
                             </tr>
                             <tr>
                                 <td colspan=3>
-                                    Comment Comment Comment
+                                    {{comment.content}}
                                 </td>
                             </tr>
                         </table>
-                    </tr>
-                </table>
             </td>
         </tr>
     </table>

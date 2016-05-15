@@ -27,3 +27,7 @@ input[type="button"]{
 textarea {
     resize: none;
 }
+
+.commentTable {
+    table-layout:fixed;
+}
