@@ -8,49 +8,49 @@ angular.module('tsApp')
 	        var taskContributor = {"name": "Pera Peric"};
             var comment1 = {"author":"Pera Peric", "commentDate":"25.5.2016.","content":"Komentar1"};
             var comment2 = {"author":"asdf123", "commentDate":"26.5.2016.","content":"Komentar2"};
-	        var tasks = [{"name":"Task1", "createdBy":"admin", "contributor": taskContributor, "percentage": 30,
+	        var taskVersions = [{"name":"Task1", "createdBy":"admin", "contributor": taskContributor, "percentage": 30,
                           "status":"To Do", "priority":"Minor", 
                           "description":"Task1 description", "comments": [comment1, comment2]}, 
-			             {"name":"Task2", "createdBy":"admin","contributor": taskContributor, "percentage": 50,
+			             {"name":"Task1", "createdBy":"admin","contributor": taskContributor, "percentage": 50,
                           "status":"To Do", "priority":"Major", 
                           "description": "Task2 description", "comments": [comment1]}];
-	        var project = {"name" : "proj1", "contributors" : contributors, "tasks":tasks};
-            //-------------------\test data------------------
+	        var projects = [{"name" : "proj1", "contributors" : contributors, "tasks":[]}];
+            var task = {"code":"code", "project":projects[0], "taskVersions": taskVersions};
+            projects[idProj].tasks.push(task);
            
-            $scope.projects = [project];
-            $scope.task = $scope.projects[idProj].tasks[idTask];
+            $scope.task = projects[idProj].tasks[idTask];
             
-            $scope.addComment = function(){
+            $scope.addComment = function(index){
                 var modalInstance = $uibModal.open({
 								animation: false,
 								templateUrl: 'adminAddComment_m.html',
 								controller: 'adminAddCommentController',
 								resolve: {
 									item: function(){
-											return $scope.task;
+											return $scope.task.taskVersions[index];
 										}
-									}
+								}
 						});
             }
             
-            $scope.modifyComment = function(index){
+            $scope.modifyComment = function(taskIndex, commentIndex){
                 var modalInstance = $uibModal.open({
 								animation: false,
 								templateUrl: 'adminAddComment_m.html',
 								controller: 'adminModifyCommentController',
 								resolve: {
 									item: function(){
-											return $scope.task;
+											return $scope.task.taskVersions[taskIndex];
 										},
                                     index: function(){
-                                        return index;
+                                        return commentIndex;
                                     }
                                 }
 						});
             }
             
-            $scope.removeComment = function(index){
-                $scope.task.comments.splice(index, 1);
+            $scope.removeComment = function(taskIndex, commentIndex){
+                $scope.task.taskVersions[taskIndex].comments.splice(commentIndex, 1);
             }
         })
         

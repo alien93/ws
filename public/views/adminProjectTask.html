@@ -6,10 +6,10 @@
             <p class="navbar-right navbar-text"><a ui-sref = "login">Log out</a></p>
         </div>
     </nav>
-<div class="jumbotron">	
+    
+<div ng-controller="adminTaskController">
 
-    <div ng-controller="adminTaskController">
-
+<div class="jumbotron" ng-repeat="task in task.taskVersions">	
 
     <table class="table table-condensed">
         <tr>
@@ -57,7 +57,7 @@
         <tr>
             <th>Comments:</th>
             <td>
-                <input type="button" value="Add" class="btn btn-primary" style="float:right" ng-click="addComment()">
+                <input type="button" value="Add" class="btn btn-primary" style="float:right" ng-click="addComment($index)">
             </td>
         </tr>
         <tr>
@@ -67,11 +67,11 @@
                                 <th>{{comment.author}}</th>
                                 <th style="float:right">{{comment.commentDate | date:'dd.MM.yyyy'}}</th>
                                 <td>
-                                    <button type="button" class="btn btn-default" style="float:right" ng-click="removeComment($index)"> 
+                                    <button type="button" class="btn btn-default" style="float:right" ng-click="removeComment($parent.$index, $index)"> 
                                         <span class="glyphicon glyphicon-remove">
                                     </button>
                                     &nbsp;
-                                    <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($index)"> 
+                                    <button type="button" class="btn btn-default" style="float:right" ng-click="modifyComment($parent.$index, $index)"> 
                                         <span class="glyphicon glyphicon-pencil">
                                     </button>
                                 </td>
