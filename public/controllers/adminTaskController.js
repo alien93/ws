@@ -17,6 +17,13 @@ angular.module('tsApp')
 	        var projects = [{"name" : "proj1", "contributors" : contributors, "tasks":[]}];
             var task = {"code":"code", "project":projects[0], "taskVersions": taskVersions};
             projects[idProj].tasks.push(task);
+            //-----------------\test data------------------------
+            
+            if($cookies.get('type')!='Administrator' ||
+				$cookies.get('username')==undefined)
+						$location.path('/adminLogin');
+	        
+            $scope.username = $cookies.get('username');	
            
             $scope.task = projects[idProj].tasks[idTask];
             

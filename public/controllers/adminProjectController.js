@@ -4,14 +4,20 @@ angular.module('tsApp')
 			function($scope, $uibModal, $location, $cookies){
 				
 					//---------test data------------------
-					var contributors  = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}];
 					var taskContributor = {"name": "Pera Peric"};
 					var tasks = [{"name":"Task1", "createdBy":"admin", "contributor": taskContributor, "percentage": 30, "status":"To Do",
 										 "description":"Task1 description", "priority":"Minor"}, 
 								 {"name":"Task2", "createdBy":"admin","contributor": taskContributor, "percentage": 50, "status":"To Do", 
 								 	 	 "description": "Task2 description", "priority":"Major"}];
-					var project = {"name" : "proj1", "contributors" : contributors, "tasks":tasks};
+					var project = {"name" : "proj1", "contributors" : [], "tasks":tasks};
+					var registeredUsers = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}, {"name": "Marko Markovic"}];
 					//---------\test data-----------------
+					
+					if($cookies.get('type')!='Administrator' ||
+					   $cookies.get('username')==undefined)
+						$location.path('/adminLogin');
+					
+					$scope.username = $cookies.get('username');
 					
 					$scope.projects = [project];
 					
@@ -39,6 +45,9 @@ angular.module('tsApp')
 										},
 									index: function(){
 											return index;
+										},
+									registeredUsers: function(){
+											return registeredUsers;
 										}
 									}
 						});
@@ -88,12 +97,14 @@ angular.module('tsApp')
 		////////////////////////////////////////////////////////////////////////////////
 		////// Add/remove project contributors, add/remove project tasks
 		////////////////////////////////////////////////////////////////////////////////
-		.controller('adminMCController', ['$scope', 'items', '$uibModalInstance',
-				function($scope, items, $uibModalInstance){
+		.controller('adminMCController', ['$scope', 'items', 'registeredUsers','$uibModalInstance',
+				function($scope, items, registeredUsers, $uibModalInstance){
 						$scope.project = items;
 						$scope.contributor = {};
 						$scope.task = {};
 						$scope.contributors = items.contributors;
+						
+						$scope.users = registeredUsers;
 						
 						////////////////////////////////////////
 						//tasks
@@ -111,11 +122,10 @@ angular.module('tsApp')
 						////////////////////////////////////////
 						//contributors
 						////////////////////////////////////////
-						$scope.addContributor = function(){
-							var newContributor = {"name" : $scope.contributor.name};
-							var contributors = [];
-							$scope.contributors.push(newContributor);
-							$scope.contributor.name = "";
+						$scope.addContributor = function(contributor){
+							if($scope.contributors.indexOf(contributor) == -1)
+								//contributor does not exist
+								$scope.contributors.push(contributor);
 						}
 						$scope.removeContributor = function(index){
 							$scope.project.contributors.splice(index, 1);

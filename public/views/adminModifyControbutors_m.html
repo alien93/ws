@@ -23,8 +23,11 @@
                    <th>&nbsp;</th>
                </tr>
 				<tr>
-					<td><input type="text" placeholder="Contributor's name" class="form-control" ng-model="contributor.name" required></td>
-					<td><input type="button" value="Add" class="btn btn-primary" ng-click="addContributor()" style="float:right"></td>
+                    <td>
+                        <select ng-options="user as user.name for user in users" ng-model="contributor" class="form-control"></select>
+                    </td>
+					<!--<td><input type="text" placeholder="Contributor's name" class="form-control" ng-model="contributor.name" required></td>-->
+					<td><input type="button" value="Add" class="btn btn-primary" ng-click="addContributor(contributor)" style="float:right"></td>
 				</tr>
                 <tr ng-repeat="contributor in contributors">
                      <td>{{contributor.name}}</td>
