@@ -1,5 +1,5 @@
 angular.module('tsApp')
-        .controller('adminTaskController', function($scope, $routeParams, $uibModal){
+        .controller('adminTaskController', function($scope, $routeParams, $uibModal, $cookies, $location){
             var idProj = $routeParams.idProj;
             var idTask = $routeParams.idTask;
             
@@ -52,6 +52,12 @@ angular.module('tsApp')
             $scope.removeComment = function(taskIndex, commentIndex){
                 $scope.task.taskVersions[taskIndex].comments.splice(commentIndex, 1);
             }
+            
+            $scope.logout = function(){
+                $cookies.remove('type');
+                $cookies.remove('username');
+                $location.path('/adminLogin');
+            }
         })
         
         
@@ -61,10 +67,10 @@ angular.module('tsApp')
         ////////////////////////////////////////////////////////////////////////
         ///// Adding comments
         ////////////////////////////////////////////////////////////////////////
-        .controller("adminAddCommentController", ['$scope', 'item', '$uibModalInstance',
-                function($scope, item, $uibModalInstance){
+        .controller("adminAddCommentController", ['$scope', 'item', '$uibModalInstance', '$cookies',
+                function($scope, item, $uibModalInstance, $cookies){
                    $scope.submit = function(){
-                       var comment = {"author":"admin", "commentDate":new Date(),"content": $scope.comment.content};
+                       var comment = {"author":$cookies.get('username'), "commentDate":new Date(),"content": $scope.comment.content};
                        item.comments.push(comment);
                        $uibModalInstance.close();
                    } 

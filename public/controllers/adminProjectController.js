@@ -1,7 +1,7 @@
 angular.module('tsApp')
 	//projects
-	.controller('adminProjectController',['$scope', '$uibModal', '$location',
-			function($scope, $uibModal, $location){
+	.controller('adminProjectController',['$scope', '$uibModal', '$location', '$cookies',
+			function($scope, $uibModal, $location, $cookies){
 				
 					//---------test data------------------
 					var contributors  = [{"name": "Pera Peric"}, {"name":"Mika Mikic"}];
@@ -72,6 +72,12 @@ angular.module('tsApp')
 					$scope.testIfVisible = function(index) { 
 						return $scope.tasksVisible[index];
 					}	
+					
+					$scope.logout = function(){
+						$cookies.remove('type');
+						$cookies.remove('username');
+						$location.path('/adminLogin');
+					}
 				}
 		])
 		

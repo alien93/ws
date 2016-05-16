@@ -1,7 +1,7 @@
 angular.module('tsApp')
 		//user dashboard
-		.controller('userDashboardController', ['$scope', '$uibModal', '$http',
-			function($scope, $uibModal, $http){
+		.controller('userDashboardController', ['$scope', '$uibModal', '$http', '$location', '$cookies',
+			function($scope, $uibModal, $http, $location, $cookies){
 				
 				$scope.taskStatus = [ "To do", "In progress", "Verify", "Done"];
 				$scope.projects = [];
@@ -67,7 +67,12 @@ angular.module('tsApp')
 				
 				$scope.moreInfo = function(idProj, idTask){
 						$location.path('/userTask/'+projectIndex+"/"+taskIndex);
-				}		
+				}	
+				
+				$scope.logout = function(){
+						console.log($cookies.get('username'));
+						$location.path('/userLogin');
+				}	
 			}
 		])
 		//-----------------------MODAL DIALOGS----------------------

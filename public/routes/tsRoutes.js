@@ -1,4 +1,4 @@
-var tsApp = angular.module('tsApp', ['ngRoute','ngResource', 'ui.bootstrap']);
+var tsApp = angular.module('tsApp', ['ngCookies', 'ngRoute','ngResource', 'ui.bootstrap']);
 
 tsApp.config(function($routeProvider){
 				
