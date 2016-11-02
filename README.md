@@ -69,3 +69,5 @@ prikazuje koliko zadatak je u kom momentu kreirano
 liniji prikazuje koliko zadatak je u kom momentu završeno
 * Aktivnost korisnika na projektu - na vremenskoj liniji se prikazuje koliko zadataka je u
 kom momentu korisnik završio
+
+proba
